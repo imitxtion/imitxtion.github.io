@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About Me</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(45deg, rgba(10, 10, 10, 0.9), rgba(15, 15, 15, 0.9));
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      max-width: 800px;
+      padding: 2rem;
+      background: rgba(26, 26, 26, 0.7);
+      border-radius: 12px;
+      border: 1px solid rgba(42, 42, 42, 0.3);
+    }
+    .markdown-body h2,
+    .markdown-body h3 {
+      color: #00ff88;
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .markdown-body h2 {
+      font-size: 1.8rem;
+    }
+    .markdown-body h3 {
+      font-size: 1.4rem;
+    }
+    .markdown-body p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    .markdown-body ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .markdown-body li {
+      margin: 0.3rem 0;
+    }
+    .markdown-body strong {
+      color: #00ff88;
+    }
+    .markdown-body code {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    /* Title for the page (like "About Me") */
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      background: linear-gradient(to right, #00ff88, #00cc6a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem;
+    }
+    /* Center the back button */
+    .back-btn-container {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.8rem 1.5rem;
+      background: #00ff88;
+      color: #0a0a0a;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s, transform 0.3s;
+      font-weight: 500;
+    }
+    .back-btn:hover {
+      background: #00cc6a;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>About Me</h1>
+    <!-- Markdown-structured content -->
+    <div class="markdown-body">
+      <p>
+        Page full of text.
+      </p>
+    <!-- Centered back button -->
+    <div class="back-btn-container">
+      <a class="back-btn" href="index.html">Back to Main Page</a>
+    </div>
+  </div>
+</body>
+</html>
