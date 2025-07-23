@@ -767,6 +767,23 @@ html {
     }
     .content-wrapper {
         padding: 10px;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
+    }
+    .typing-container {
+        font-size: 1.5em;
+        margin-bottom: 24px;
+        height: auto;
+        min-height: 2.5em;
+        word-break: break-word;
+        line-height: 1.2;
+    }
+    .about-me {
+        padding: 18px 10px 16px 10px;
+        font-size: 1.08em;
+        margin: 32px 0 24px 0;
+        word-break: break-word;
     }
     .main-content {
         padding: 60px 10px;
@@ -799,11 +816,6 @@ html {
     }
     .fixed-menu {
         justify-content: flex-start;
-    }
-    .about-me {
-        padding: 18px 10px 16px 10px;
-        font-size: 1.08em;
-        margin: 24px 0 24px 0;
     }
 }
 .theme-toggle-container, .rain-toggle-container {
