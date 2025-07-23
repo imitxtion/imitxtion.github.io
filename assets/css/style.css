@@ -772,17 +772,20 @@ html {
         box-sizing: border-box;
     }
     .typing-container {
-        font-size: 1.5em;
-        margin-bottom: 24px;
+        font-size: 1.1em;
+        margin-bottom: 36px;
+        min-height: unset;
         height: auto;
-        min-height: 2.5em;
+        position: static;
+        overflow-wrap: anywhere;
         word-break: break-word;
-        line-height: 1.2;
+        line-height: 1.15;
     }
     .about-me {
         padding: 18px 10px 16px 10px;
-        font-size: 1.08em;
-        margin: 32px 0 24px 0;
+        font-size: 1em;
+        margin: 0 0 24px 0;
+        overflow-wrap: anywhere;
         word-break: break-word;
     }
     .main-content {
