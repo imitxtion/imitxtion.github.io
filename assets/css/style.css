@@ -1,4 +1,4 @@
-/* General styles and theme variables */
+/* General layout */
 * {
     margin: 0;
     padding: 0;
@@ -123,7 +123,7 @@ body.light-theme {
     justify-content: center;
     flex-wrap: wrap;
 }
-.menu-button, .articles-button {
+.menu-button {
     font-family: var(--font-family);
     background: none;
     border: none;
@@ -138,11 +138,7 @@ body.light-theme {
     min-width: 160px; /* Centering fix */
     text-align: center; /* Centering fix */
 }
-.menu-button:hover, .articles-button:hover {
-    color: var(--accent-color);
-    border-bottom-color: var(--accent-color);
-}
-.articles-button {
+.menu-button:hover {
     color: var(--accent-color);
     border-bottom-color: var(--accent-color);
 }
@@ -295,7 +291,7 @@ h2::after {
     margin: 0;
     z-index: 1;
 }
-.fixed-menu .menu-button, .fixed-menu .articles-button {
+.fixed-menu .menu-button {
     margin: 0 8px;
     font-size: 1.08em;
     padding: 8px 18px;
@@ -801,7 +797,7 @@ html {
         flex-direction: column;
         margin-top: 20px;
     }
-    .menu-button, .articles-button {
+    .menu-button {
         width: 100%;
         margin: 8px 0;
         font-size: 1.15em;

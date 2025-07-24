@@ -1,3 +1,4 @@
+// Rain animation and UI logic
 (function() {
 // Constants
 const RAIN_BASE_DIVISOR = 6000;
@@ -9,12 +10,10 @@ const RAIN_AMOUNT_MIN = 0.25;
 const RAIN_AMOUNT_MAX = 2.0;
 const TYPING_INTERVAL = 55;
 const PAUSE_DURATION = 700;
-
-// More visible raindrop color for dark theme
-const RAIN_COLOR_DARK = 'rgba(127, 143, 170, 0.45)'; // Increased opacity
+const RAIN_COLOR_DARK = 'rgba(127, 143, 170, 0.45)';
 const RAIN_COLOR_LIGHT = 'rgba(54, 78, 107, 0.35)';
 
-// Main rain and UI logic
+// State variables
 let rainEnabled = true;
 let displayedSpeed = 1.0;
 let rainSpeedMultiplier = 2.5 * displayedSpeed;
@@ -27,58 +26,153 @@ let currentTypingAnimation = null;
 let isTyping = false;
 let rainColor = RAIN_COLOR_DARK;
 
-// Text for typing animation
+// Typing animation text
 const originalTextParts = ["It's ", "rxiny", " here...", " Take an umbrella."];
 const umbrellaTextParts = ["...", "really?", " I'm taking my umbrella back."];
 
+// Utility: Format speed display
 function formatSpeedDisplay(multiplier) {
-    // Always round to nearest 0.25 for display
     return multiplier.toFixed(2).replace(/\.00$/, '').replace(/(\.\d)0$/, '$1');
 }
 
-function startArticlesTypingAnimation() {
+// Typing animation logic
+function startTypingAnimation(textParts) {
     const typingElement = document.getElementById('typing-text');
     const cursorElement = document.getElementById('typing-cursor');
-    if (!typingElement || !cursorElement) return;
     typingElement.innerHTML = '';
     cursorElement.style.display = 'inline';
-    const text = 'Soon.';
+    let partIndex = 0;
     let charIndex = 0;
     let lastTime = 0;
     let timer = 0;
-    const TYPING_INTERVAL = 55;
+    let isPaused = false;
+    let pauseStart = 0;
+    isTyping = true;
     function animateTyping(timestamp) {
         if (!lastTime) lastTime = timestamp;
         const deltaTime = timestamp - lastTime;
         lastTime = timestamp;
+        if (isPaused) {
+            if (timestamp - pauseStart >= PAUSE_DURATION) {
+                isPaused = false;
+            }
+            currentTypingAnimation = requestAnimationFrame(animateTyping);
+            return;
+        }
         if (timer > TYPING_INTERVAL) {
-            if (charIndex < text.length) {
-                typingElement.textContent += text.charAt(charIndex);
-                charIndex++;
+            if (partIndex < textParts.length) {
+                const currentPart = textParts[partIndex];
+                if (charIndex < currentPart.length) {
+                    let span = typingElement.querySelector(`span[data-part-index='${partIndex}']`);
+                    if (!span) {
+                        span = document.createElement('span');
+                        span.dataset.partIndex = partIndex;
+                        if (partIndex === 1 && textParts === originalTextParts) {
+                            span.className = 'highlight';
+                        }
+                        typingElement.appendChild(span);
+                    }
+                    span.textContent += currentPart.charAt(charIndex);
+                    charIndex++;
+                } else {
+                    if ((textParts === originalTextParts && partIndex === 2) || 
+                        (textParts === umbrellaTextParts && partIndex === 1)) {
+                        isPaused = true;
+                        pauseStart = timestamp;
+                    }
+                    charIndex = 0;
+                    partIndex++;
+                }
             }
             timer = 0;
         } else {
             timer += deltaTime;
         }
-        if (charIndex >= text.length) {
+        if (partIndex >= textParts.length && charIndex === 0) {
             cursorElement.style.display = 'none';
+            isTyping = false;
             return;
         }
-        requestAnimationFrame(animateTyping);
+        currentTypingAnimation = requestAnimationFrame(animateTyping);
     }
-    requestAnimationFrame(animateTyping);
+    currentTypingAnimation = requestAnimationFrame(animateTyping);
 }
 
+// Alternate message typing logic
+function typeNewMessage() {
+    const typingElement = document.getElementById('typing-text');
+    const cursorElement = document.getElementById('typing-cursor');
+    typingElement.innerHTML = '';
+    cursorElement.style.display = 'inline';
+    isTyping = true;
+    const newTextParts = umbrellaTextParts;
+    let partIndex = 0;
+    let charIndex = 0;
+    let lastTime = 0;
+    let timer = 0;
+    let isPaused = false;
+    let pauseStart = 0;
+    function animateNewTyping(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        const deltaTime = timestamp - lastTime;
+        lastTime = timestamp;
+        if (isPaused) {
+            if (timestamp - pauseStart >= PAUSE_DURATION) {
+                isPaused = false;
+            }
+            currentTypingAnimation = requestAnimationFrame(animateNewTyping);
+            return;
+        }
+        if (timer > TYPING_INTERVAL) {
+            if (partIndex < newTextParts.length) {
+                const currentPart = newTextParts[partIndex];
+                if (charIndex < currentPart.length) {
+                    let span = typingElement.querySelector(`span[data-new-part-index='${partIndex}']`);
+                    if (!span) {
+                        span = document.createElement('span');
+                        span.dataset.newPartIndex = partIndex;
+                        typingElement.appendChild(span);
+                    }
+                    span.textContent += currentPart.charAt(charIndex);
+                    charIndex++;
+                } else {
+                    if (partIndex === 1) {
+                        isPaused = true;
+                        pauseStart = timestamp;
+                    }
+                    charIndex = 0;
+                    partIndex++;
+                }
+            }
+            timer = 0;
+        } else {
+            timer += deltaTime;
+        }
+        if (partIndex >= newTextParts.length && charIndex === 0) {
+            cursorElement.style.display = 'none';
+            isTyping = false;
+            return;
+        }
+        currentTypingAnimation = requestAnimationFrame(animateNewTyping);
+    }
+    currentTypingAnimation = requestAnimationFrame(animateNewTyping);
+}
+
+// DOMContentLoaded: Main UI and rain logic
+// - Typing animation
+// - Rain animation
+// - Scroll/transition logic
+// - Theme toggle
+// - Panel toggle
+// - Rain controls
+// - Nickname tooltips
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Typing animation (only on landing page or articles page)
+    // Typing animation (only on landing page)
     const typingElement = document.getElementById('typing-text');
     const cursorElement = document.getElementById('typing-cursor');
     if (typingElement && cursorElement) {
-        if (window.location.pathname.endsWith('articles.html')) {
-            startArticlesTypingAnimation();
-        } else {
-            startTypingAnimation(originalTextParts);
-        }
+        startTypingAnimation(originalTextParts);
     }
 
     // Rain & interaction canvas (on any page with rain-canvas)
@@ -394,129 +488,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (button) button.addEventListener('click', fn);
     });
 });
-
-// Typing animation logic
-function startTypingAnimation(textParts) {
-    const typingElement = document.getElementById('typing-text');
-    const cursorElement = document.getElementById('typing-cursor');
-    typingElement.innerHTML = '';
-    cursorElement.style.display = 'inline';
-    let partIndex = 0;
-    let charIndex = 0;
-    let lastTime = 0;
-    let timer = 0;
-    let isPaused = false;
-    let pauseStart = 0;
-    isTyping = true;
-    function animateTyping(timestamp) {
-        if (!lastTime) lastTime = timestamp;
-        const deltaTime = timestamp - lastTime;
-        lastTime = timestamp;
-        if (isPaused) {
-            if (timestamp - pauseStart >= PAUSE_DURATION) {
-                isPaused = false;
-            }
-            currentTypingAnimation = requestAnimationFrame(animateTyping);
-            return;
-        }
-        if (timer > TYPING_INTERVAL) {
-            if (partIndex < textParts.length) {
-                const currentPart = textParts[partIndex];
-                if (charIndex < currentPart.length) {
-                    let span = typingElement.querySelector(`span[data-part-index='${partIndex}']`);
-                    if (!span) {
-                        span = document.createElement('span');
-                        span.dataset.partIndex = partIndex;
-                        if (partIndex === 1 && textParts === originalTextParts) {
-                            span.className = 'highlight';
-                        }
-                        typingElement.appendChild(span);
-                    }
-                    span.textContent += currentPart.charAt(charIndex);
-                    charIndex++;
-                } else {
-                    if ((textParts === originalTextParts && partIndex === 2) || 
-                        (textParts === umbrellaTextParts && partIndex === 1)) {
-                        isPaused = true;
-                        pauseStart = timestamp;
-                    }
-                    charIndex = 0;
-                    partIndex++;
-                }
-            }
-            timer = 0;
-        } else {
-            timer += deltaTime;
-        }
-        if (partIndex >= textParts.length && charIndex === 0) {
-            cursorElement.style.display = 'none';
-            isTyping = false;
-            return;
-        }
-        currentTypingAnimation = requestAnimationFrame(animateTyping);
-    }
-    currentTypingAnimation = requestAnimationFrame(animateTyping);
-}
-
-// Alternate message typing logic
-function typeNewMessage() {
-    const typingElement = document.getElementById('typing-text');
-    const cursorElement = document.getElementById('typing-cursor');
-    typingElement.innerHTML = '';
-    cursorElement.style.display = 'inline';
-    isTyping = true;
-    const newTextParts = umbrellaTextParts;
-    let partIndex = 0;
-    let charIndex = 0;
-    let lastTime = 0;
-    let timer = 0;
-    let isPaused = false;
-    let pauseStart = 0;
-    function animateNewTyping(timestamp) {
-        if (!lastTime) lastTime = timestamp;
-        const deltaTime = timestamp - lastTime;
-        lastTime = timestamp;
-        if (isPaused) {
-            if (timestamp - pauseStart >= PAUSE_DURATION) {
-                isPaused = false;
-            }
-            currentTypingAnimation = requestAnimationFrame(animateNewTyping);
-            return;
-        }
-        if (timer > TYPING_INTERVAL) {
-            if (partIndex < newTextParts.length) {
-                const currentPart = newTextParts[partIndex];
-                if (charIndex < currentPart.length) {
-                    let span = typingElement.querySelector(`span[data-new-part-index='${partIndex}']`);
-                    if (!span) {
-                        span = document.createElement('span');
-                        span.dataset.newPartIndex = partIndex;
-                        typingElement.appendChild(span);
-                    }
-                    span.textContent += currentPart.charAt(charIndex);
-                    charIndex++;
-                } else {
-                    if (partIndex === 1) {
-                        isPaused = true;
-                        pauseStart = timestamp;
-                    }
-                    charIndex = 0;
-                    partIndex++;
-                }
-            }
-            timer = 0;
-        } else {
-            timer += deltaTime;
-        }
-        if (partIndex >= newTextParts.length && charIndex === 0) {
-            cursorElement.style.display = 'none';
-            isTyping = false;
-            return;
-        }
-        currentTypingAnimation = requestAnimationFrame(animateNewTyping);
-    }
-    currentTypingAnimation = requestAnimationFrame(animateNewTyping);
-}
 
 // Smooth scroll to section
 window.scrollToSection = function(sectionId) {
