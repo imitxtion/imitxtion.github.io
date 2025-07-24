@@ -17,7 +17,7 @@ const RAIN_COLOR_LIGHT = 'rgba(54, 78, 107, 0.35)';
 // Main rain and UI logic
 let rainEnabled = true;
 let displayedSpeed = 1.0;
-let rainSpeedMultiplier = 1.5 * displayedSpeed;
+let rainSpeedMultiplier = 2.5 * displayedSpeed;
 let rainAmountMultiplier = 1.0;
 let rainArray = [];
 let splashArray = [];
@@ -373,12 +373,12 @@ document.addEventListener('DOMContentLoaded', () => {
     [
         {id: 'speed-up', fn: () => {
             displayedSpeed = Math.min(DISPLAYED_SPEED_MAX, displayedSpeed + RAIN_SPEED_STEP);
-            rainSpeedMultiplier = 1.5 * displayedSpeed;
+            rainSpeedMultiplier = 2.5 * displayedSpeed;
             if (speedValue) speedValue.textContent = formatSpeedDisplay(displayedSpeed);
         }},
         {id: 'speed-down', fn: () => {
             displayedSpeed = Math.max(DISPLAYED_SPEED_MIN, displayedSpeed - RAIN_SPEED_STEP);
-            rainSpeedMultiplier = 1.5 * displayedSpeed;
+            rainSpeedMultiplier = 2.5 * displayedSpeed;
             if (speedValue) speedValue.textContent = formatSpeedDisplay(displayedSpeed);
         }},
         {id: 'amount-up', fn: () => {
