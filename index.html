@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rxiny</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-theme">
+    <header>
+        <button id="panel-toggle" aria-label="Show controls" class="panel-toggle-btn">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="10" width="16" height="2" rx="1" fill="currentColor"/>
+                <rect x="7" y="6" width="10" height="2" rx="1" fill="currentColor"/>
+                <rect x="7" y="14" width="10" height="2" rx="1" fill="currentColor"/>
+            </svg>
+        </button>
+        <div class="theme-controls">
+            <div class="control-group">
+                <div class="theme-toggle-container">
+                    <i class="theme-icon fas fa-sun" id="sun-icon"></i>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <i class="theme-icon fas fa-moon" id="moon-icon"></i>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="rain-toggle-container">
+                    <i class="rain-icon fas fa-droplet-slash" id="rain-off-icon"></i>
+                    <label class="switch">
+                        <input type="checkbox" id="rain-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <i class="rain-icon fas fa-droplet" id="rain-on-icon"></i>
+                </div>
+            </div>
+            <div class="rain-param">
+                <span class="param-label">Speed</span>
+                <div class="param-controls">
+                    <button class="param-btn" id="speed-down">-</button>
+                    <span class="param-value" id="speed-value">1.0x</span>
+                    <button class="param-btn" id="speed-up">+</button>
+                </div>
+            </div>
+            <div class="rain-param">
+                <span class="param-label">Intensity</span>
+                <div class="param-controls">
+                    <button class="param-btn" id="amount-down">-</button>
+                    <span class="param-value" id="amount-value">1.0x</span>
+                    <button class="param-btn" id="amount-up">+</button>
+                </div>
+            </div>
+        </div>
+        <nav class="fixed-menu">
+            <div class="fixed-row">
+                <div class="fixed-left">
+                    <a href="#" class="nickname nickname-highlight" data-nickname="rxiny" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">rxiny</a>
+                    <span class="separator"></span>
+                    <span class="fixed-socials">
+                        <a href="https://github.com/imitxtion" target="_blank" aria-label="GitHub" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://discord.com/users/345629650229395487" target="_blank" aria-label="Discord" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.07.07 0 0 0-.073.035c-.211.375-.444.864-.608 1.249-1.844-.276-3.68-.276-5.486 0-.164-.393-.405-.874-.617-1.249a.07.07 0 0 0-.073-.035 19.736 19.736 0 0 0-4.885 1.515.064.064 0 0 0-.03.027C.533 9.045-.32 13.579.099 18.057a.08.08 0 0 0 .031.056c2.052 1.507 4.042 2.422 5.992 3.029a.07.07 0 0 0 .076-.027c.461-.63.873-1.295 1.226-1.994a.07.07 0 0 0-.038-.098c-.652-.247-1.27-.549-1.872-.892a.07.07 0 0 1-.007-.117c.126-.094.252-.192.371-.291a.07.07 0 0 1 .073-.01c3.927 1.793 8.18 1.793 12.061 0a.07.07 0 0 1 .074.009c.12.099.245.198.372.292a.07.07 0 0 1-.006.117c-.603.343-1.221.645-1.873.892a.07.07 0 0 0-.038.098c.36.699.772 1.364 1.227 1.994a.07.07 0 0 0 .076.027c1.95-.607 3.94-1.522 5.992-3.029a.077.077 0 0 0 .031-.055c.5-5.177-.838-9.673-3.548-13.661a.061.061 0 0 0-.03-.028zM8.02 15.331c-1.183 0-2.156-1.085-2.156-2.419 0-1.333.955-2.418 2.156-2.418 1.21 0 2.175 1.095 2.156 2.418 0 1.334-.955 2.419-2.156 2.419zm7.974 0c-1.183 0-2.156-1.085-2.156-2.419 0-1.333.955-2.418 2.156-2.418 1.21 0 2.175 1.095 2.156 2.418 0 1.334-.946 2.419-2.156 2.419z"/></svg>
+                        </a>
+                        <a href="https://t.me/itsrxinyhere" target="_blank" aria-label="Telegram" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10c0-5.523-4.477-10-10-10zm3.94 7.44l-1.43 6.76c-.11.5-.4.62-.81.39l-2.25-1.66-1.09 1.05c-.12.12-.22.22-.45.22l.16-2.28 4.16-3.77c.18-.16-.04-.25-.28-.09l-5.15 3.24-2.22-.69c-.48-.15-.49-.48.1-.7l8.68-3.35c.4-.15.75.09.62.7z"/></svg>
+                        </a>
+                    </span>
+                </div>
+                <div class="fixed-center">
+                    <button class="menu-button" onclick="scrollToSection('learn-more')">Learn more</button>
+                    <button class="menu-button" onclick="scrollToSection('contact')">Contact</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="landing-screen">
+            <canvas id="rain-canvas"></canvas>
+            <div class="content-wrapper">
+                <div class="typing-container">
+                    <span id="typing-text"></span><span class="nickname-highlight" data-nickname="rxiny"><span class="nickname-tip">rainy</span></span><span class="typing-cursor" id="typing-cursor">|</span>
+                </div>
+                <div class="about-me">
+                    Hey, my name is Alex — known online as <span class="nickname-highlight" data-nickname="rxiny">rxiny<span class="nickname-tip">rainy</span></span> or <span class="nickname-highlight" data-nickname="imitxtion">imitxtion<span class="nickname-tip">imitation</span></span>. I’m a network engineer with an interest in cybersecurity and privacy.<br><br>
+                    This website acts as my business card. Here you can find my socials, contact info and a bit about me.
+                </div>
+                <div class="social-media">
+                    <a href="https://github.com/imitxtion" target="_blank" aria-label="GitHub" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a href="https://discord.com/users/345629650229395487" target="_blank" aria-label="Discord" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.07.07 0 0 0-.073.035c-.211.375-.444.864-.608 1.249-1.844-.276-3.68-.276-5.486 0-.164-.393-.405-.874-.617-1.249a.07.07 0 0 0-.073-.035 19.736 19.736 0 0 0-4.885 1.515.064.064 0 0 0-.03.027C.533 9.045-.32 13.579.099 18.057a.08.08 0 0 0 .031.056c2.052 1.507 4.042 2.422 5.992 3.029a.07.07 0 0 0 .076-.027c.461-.63.873-1.295 1.226-1.994a.07.07 0 0 0-.038-.098c-.652-.247-1.27-.549-1.872-.892a.07.07 0 0 1-.007-.117c.126-.094.252-.192.371-.291a.07.07 0 0 1 .073-.01c3.927 1.793 8.18 1.793 12.061 0a.07.07 0 0 1 .074.009c.12.099.245.198.372.292a.07.07 0 0 1-.006.117c-.603.343-1.221.645-1.873.892a.07.07 0 0 0-.038.098c.36.699.772 1.364 1.227 1.994a.07.07 0 0 0 .076.027c1.95-.607 3.94-1.522 5.992-3.029a.077.077 0 0 0 .031-.055c.5-5.177-.838-9.673-3.548-13.661a.061.061 0 0 0-.03-.028zM8.02 15.331c-1.183 0-2.156-1.085-2.156-2.419 0-1.333.955-2.418 2.156-2.418 1.21 0 2.175 1.095 2.156 2.418 0 1.334-.955 2.419-2.156 2.419zm7.974 0c-1.183 0-2.156-1.085-2.156-2.419 0-1.333.955-2.418 2.156-2.418 1.21 0 2.175 1.095 2.156 2.418 0 1.334-.946 2.419-2.156 2.419z"/></svg>
+                    </a>
+                    <a href="https://t.me/itsrxinyhere" target="_blank" aria-label="Telegram" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10c0-5.523-4.477-10-10-10zm3.94 7.44l-1.43 6.76c-.11.5-.4.62-.81.39l-2.25-1.66-1.09 1.05c-.12.12-.22.22-.45.22l.16-2.28 4.16-3.77c.18-.16-.04-.25-.28-.09l-5.15 3.24-2.22-.69c-.48-.15-.49-.48.1-.7l8.68-3.35c.4-.15.75.09.62.7z"/></svg>
+                    </a>
+                </div>
+                <div class="menu">
+                    <button class="menu-button" onclick="scrollToSection('learn-more')">Learn more</button>
+                    <button class="menu-button" onclick="scrollToSection('contact')">Contact</button>
+                </div>
+            </div>
+            <div class="scroll-arrow"><span></span><span></span><span></span></div>
+        </div>
+        <div class="main-content">
+            <section id="learn-more">
+                <h2>Learn More</h2>
+                <div class="learn-more-timeline minimalistic">
+                    <div class="timeline-card minimalistic compact accent-border">
+                        <div class="timeline-content" style="display: flex; align-items: center; gap: 20px;">
+                            <div style="font-size: 2.1em; color: var(--accent-color); flex-shrink: 0;">
+                                
+                            </div>
+                            <div style="flex: 1;">
+                                <div class="timeline-label" style="font-weight: bold; font-size: 1.15em; margin-bottom: 10px;">Long story short</div>
+                                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                    <span style="background: rgba(171,184,195,0.13); border-radius: 12px; padding: 5px 14px; font-size: 0.98em; color: var(--primary-color);">Graduate Student</span>
+                                    <span style="background: rgba(171,184,195,0.13); border-radius: 12px; padding: 5px 14px; font-size: 0.98em; color: var(--primary-color);">Linux enjoyer (Arch ofc)</span>
+                                    <span style="background: rgba(171,184,195,0.13); border-radius: 12px; padding: 5px 14px; font-size: 0.98em; color: var(--primary-color);">Cybersecurity & Privacy Enthusiast</span>
+                                    <span style="background: rgba(171,184,195,0.13); border-radius: 12px; padding: 5px 14px; font-size: 0.98em; color: var(--primary-color);">Breakcore soul</span>
+                                    <span style="background: rgba(171,184,195,0.13); border-radius: 12px; padding: 5px 14px; font-size: 0.98em; color: var(--primary-color);">Calisthenics athlete</span>
+                                    <span style="background: rgba(171,184,195,0.13); border-radius: 12px; padding: 5px 14px; font-size: 0.98em; color: var(--primary-color);">Love old Anime & Manga</span>
+                                    <span style="background: rgba(171,184,195,0.13); border-radius: 12px; padding: 5px 14px; font-size: 0.98em; color: var(--primary-color);">Dreaming of Japan</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-card minimalistic accent-border">
+                        <div class="timeline-content">
+                            <p>As mentioned above, I'm a student, currently pursuing masters degrees at 2 universities. Based in Vienna (Austria). My main areas of tech interst are networking and cybersecurity. Some of my hobbies include: spending an inane amount of time ricing random stuff on my system (replaced gaming with that), solving CTFs, griefing myself with privacy improvements, hating Windows, shadowboxing anti-viruses, and doing calisthenics.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-card minimalistic accent-border">
+                        <div class="timeline-content">
+                            <p>One of the main purposes of my online activities is to consolidate my learning by documenting and sharing it with the world. I'd be gratefult if my writing saves someone's time or gives valuable knowledge. For that reason I'm starting to post on social media.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="contact">
+                <h2>Contact</h2>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 800px; margin: 0 auto;">
+                    <div style="color: var(--primary-color); font-size: 1.3em; text-align: center; line-height: 2; margin-top: 8px; margin-bottom: 8px;">
+                        Have an interesting idea in mind or just want to connect? <br>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 650px; margin: 0 auto;">
+                    <div style="color: var(--primary-color); font-size: 1.3em; text-align: center; line-height: 2; margin-top: 8px; margin-bottom: 1px;">
+                        Feel free to reach me on social media provided above, or send an email to:<br>
+                        <a href="mailto:itsrxinyhere@proton.me" class="nickname-highlight" style="text-decoration: none;">
+                            itsrxinyhere@proton.me
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer style="width: 100%; padding: 24px 0 16px 0; background-color: var(--menu-bg-color); color: var(--primary-color); text-align: center; font-size: 1em; opacity: 0.85; margin-top: 40px; border-top: 1px solid var(--rain-controls-border);">
+        Made with <i class="fas fa-mug-hot" style="color: var(--accent-color); margin: 0 4px;"></i> and malicious JS by <span class="nickname-highlight" data-nickname="rxiny">rxiny</span>
+    </footer>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
