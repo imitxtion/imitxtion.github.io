@@ -203,10 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.life = 1;
                 this.color = color;
             }
-            updateAndDraw() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.life -= 0.04;
+            updateAndDraw(delta) {
+                this.x += this.speedX * delta * 60;
+                this.y += this.speedY * delta * 60;
+                this.life -= 0.04 * delta * 60;
                 ctx.globalAlpha = Math.max(0, this.life);
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.y = -this.length;
                 this.x = Math.random() * canvas.width;
             }
-            updateAndDraw() {
+            updateAndDraw(delta) {
                 if (!this.active) return;
                 let hit = false;
                 if (this.y > canvas.height) {
@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     hit = true;
                 }
                 const currentSpeed = this.baseSpeed * rainSpeedMultiplier;
-                this.y += currentSpeed;
+                this.y += currentSpeed * delta * 60;
                 if (mouse.x !== undefined && mouse.y !== undefined) {
                     const dx = mouse.x - this.x;
                     const dy = mouse.y - this.y;
@@ -275,7 +275,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 ));
             }
         }
-        function animateCanvas() {
+        let prevTimestamp = null;
+        function animateCanvas(timestamp) {
+            if (!prevTimestamp) prevTimestamp = timestamp;
+            const delta = Math.min((timestamp - prevTimestamp) / 1000, 0.05);
+            prevTimestamp = timestamp;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             // Add new drops if needed
             const baseDrops = (canvas.width * canvas.height) / RAIN_BASE_DIVISOR;
@@ -291,9 +295,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (rainArray.length > targetCount) {
                 rainArray.splice(0, rainArray.length - targetCount);
             }
-            rainArray.forEach(drop => drop.updateAndDraw());
+            rainArray.forEach(drop => drop.updateAndDraw(delta));
             for (let i = splashArray.length - 1; i >= 0; i--) {
-                splashArray[i].updateAndDraw();
+                splashArray[i].updateAndDraw(delta);
                 if (splashArray[i].life <= 0) {
                     splashArray.splice(i, 1);
                 }
@@ -301,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
             animationId = requestAnimationFrame(animateCanvas);
         }
         initRain();
-        animateCanvas();
+        requestAnimationFrame(animateCanvas);
 
         // Responsive canvas with debounce
         let resizeTimeout;
