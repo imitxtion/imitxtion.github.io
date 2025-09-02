@@ -18,14 +18,14 @@
     --font-family: 'Courier New', Courier, monospace;
     --primary-color: var(--dark-primary-color);
     --background-color: var(--dark-background-color);
-    --accent-color: #5ecbfa; /* Softer blue for UI elements */
+    --accent-color: #5ecbfa;
     --rain-color: rgba(174,194,224,0.2);
     --menu-bg-color: rgba(26, 26, 26, 0.85);
     --rain-controls-bg: rgba(26, 26, 26, 0.7);
     --rain-controls-border: rgba(171, 184, 195, 0.2);
     --param-btn-bg: rgba(171, 184, 195, 0.1);
     --param-btn-border: rgba(171, 184, 195, 0.3);
-    --section-border-color: rgba(171, 184, 195, 0.15); /* New variable */
+    --section-border-color: rgba(171, 184, 195, 0.15);
 }
 body {
     background-color: var(--background-color);
@@ -45,7 +45,7 @@ body.light-theme {
     --rain-controls-border: rgba(58, 80, 107, 0.2);
     --param-btn-bg: rgba(58, 80, 107, 0.1);
     --param-btn-border: rgba(58, 80, 107, 0.3);
-    --section-border-color: rgba(58, 80, 107, 0.15); /* New variable for light theme */
+    --section-border-color: rgba(58, 80, 107, 0.15);
 }
 
 /* Layout and section styles */
@@ -82,8 +82,8 @@ body.light-theme {
 .about-me {
     max-width: 600px;
     margin: 40px auto 40px;
-    font-size: 1.25em;
-    line-height: 1.7;
+    font-size: 1.4em;
+    line-height: 1.4;
     background: rgba(171, 184, 195, 0.08);
     padding: 32px 32px 28px 32px;
     border-radius: 18px;
@@ -135,8 +135,8 @@ body.light-theme {
     font-size: 1.25em;
     transition: all 0.3s ease;
     border-radius: 6px;
-    min-width: 160px; /* Centering fix */
-    text-align: center; /* Centering fix */
+    min-width: 160px;
+    text-align: center;
 }
 .menu-button:hover {
     color: var(--accent-color);
@@ -163,13 +163,12 @@ body.light-theme {
 .scroll-arrow span:nth-child(1) { opacity: 0.4; }
 .scroll-arrow span:nth-child(2) { margin-top: -15px; opacity: 0.7; }
 .scroll-arrow span:nth-child(3) { margin-top: -15px; opacity: 1; }
-.main-content { padding: 100px 20px; }
+.main-content { padding: 100px 20px 40px 20px; }
 section { 
     padding: 60px 0; 
-    border-top: 1px solid var(--section-border-color); /* Corrected: Using variable */
+    border-top: 1px solid var(--section-border-color);
 }
 
-/* Reduce spacing below the last section (Contact) before the footer */
 .main-content section:last-of-type {
     padding-bottom: 1px;
     margin-bottom: 0;
@@ -213,12 +212,12 @@ h2::after {
     top: 0;
     width: 100%;
     background-color: var(--menu-bg-color);
-    backdrop-filter: blur(8px); /* Modern glass effect */
+    backdrop-filter: blur(8px);
     padding: 0;
     z-index: 1000;
     text-align: center;
     display: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Softer shadow */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     opacity: 0;
     transform: translateY(-100%);
     transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.5s ease;
@@ -619,7 +618,7 @@ html {
     font-size: 2em;
     margin-bottom: 60px;
     padding-bottom: 20px;
-    color: var(--primary-color); /* Match Contact heading gray */
+    color: var(--primary-color);
     position: relative;
     display: block;
     letter-spacing: 0.5px;
@@ -639,7 +638,7 @@ html {
     display: flex;
     flex-direction: column;
     gap: 36px;
-    max-width: 950px; /* wider */
+    max-width: 950px;
     margin: 0 auto;
     position: relative;
 }
@@ -647,7 +646,7 @@ html {
     background: rgba(171, 184, 195, 0.08);
     border-radius: 16px;
     box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-    padding: 28px 48px 24px 48px; /* wider */
+    padding: 28px 48px 24px 48px;
     min-height: 60px;
     display: flex;
     align-items: flex-start;
@@ -686,7 +685,7 @@ html {
     max-width: 100%;
 }
 .timeline-card.minimalistic.compact {
-    padding: 16px 32px 14px 32px;
+    padding: 16px 32px 24px 32px;
 }
 .timeline-card.minimalistic.compact .timeline-content {
     font-size: 1em;
@@ -802,13 +801,13 @@ html {
         margin: 8px 0;
         font-size: 1.15em;
         padding: 14px 0;
-        min-width: unset; /* Remove min-width on mobile */
+        min-width: unset;
     }
     .scroll-arrow {
         bottom: 10px;
     }
     .fixed-menu .fixed-center {
-        display: none; /* Hide center menu on mobile */
+        display: none;
     }
     .fixed-menu .fixed-left {
         margin-left: 16px;
@@ -861,13 +860,21 @@ html {
 .timeline-card.accent-border {
     border-left: 4px solid var(--accent-color);
     background-clip: padding-box;
-    /* Optionally, add a little left padding for text separation */
     padding-left: 36px;
 }
 .timeline-card.accent-border .timeline-content {
     margin-left: 0;
 }
-/* Remove dot/pipe visuals if any remain */
 .timeline-dot, .timeline-pipe {
     display: none !important;
+}
+
+/* Add spacing between paragraphs in timeline content */
+.timeline-content p {
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.timeline-content p:last-child {
+    margin-bottom: 0;
 }
